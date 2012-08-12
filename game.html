@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html id="home" lang="en">
+<head>
+<meta charset="utf-8" />
+<script src="src/GameOfLife.js"></script>
+<script>
+var gameOfLife,
+canvas,
+ctx,
+generationNumberSpan
+offBlackStyle = 'rgb(10, 10, 15)',
+greyStyle = 'rgb(128, 128, 135)',
+whiteStyle = 'rgb(255, 255, 255)',
+sqSz = 10;
+
+function getClickedCell(e) {
+  var x, y;
+
+  if (e.pageX || e.pageY) {
+    x = e.pageX;
+    y = e.pageY;
+  } else {
+    x = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+    y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+  }
+
+  x -= canvas.offsetLeft;
+  y -= canvas.offsetTop;
+
+  return [Math.floor(x / sqSz), Math.floor(y / sqSz)];
+}
+    
+
+function onCanvasClick(e) {
+  var cell = getClickedCell(e);
+  gameOfLife.toggleCell(cell[0], cell[1]);
+}
+
+function drawRectOnCell(x, y, style) {
+  style = style || offBlackStyle;
+  ctx.fillStyle = style;
+  ctx.fillRect(x * sqSz, y * sqSz, sqSz, sqSz);
+}
+
+function prepareGameOfLife() {
+  canvas = document.getElementById('gameOfLifeWorld');
+  ctx = canvas.getContext('2d');
+  ctx.fillStyle = 'rgb(10, 10, 15)';
+  gameOfLife = GameOfLife(canvas.width / sqSz, canvas.height / sqSz);
+  generationNumberSpan = document.getElementById('generation');
+
+  gameOfLife.onStep(function() {
+    var cx, cy;
+    for (cx = 0; cx < gameOfLife.get_width(); cx += 1) {
+      for (cy = 0; cy < gameOfLife.get_height(); cy += 1) {
+        if (gameOfLife.isLiving(cx, cy)) {
+          drawRectOnCell(cx, cy, offBlackStyle);
+        } else {
+          drawRectOnCell(cx, cy, whiteStyle);
+        }
+      }
+    }
+
+    generationNumberSpan.innerText = gameOfLife.get_generation();
+  });
+
+  gameOfLife.onCellPopulated(function(x, y) {
+    drawRectOnCell(x, y, offBlackStyle);
+  });
+
+  gameOfLife.onCellKilled(function(x, y) {
+    drawRectOnCell(x, y, whiteStyle);
+  });
+
+  canvas.addEventListener('click', onCanvasClick, false);
+
+  gameOfLife.populateCell(1, 1);
+  gameOfLife.populateCell(2, 1);
+  gameOfLife.populateCell(2, 2);
+  gameOfLife.populateCell(1, 2);
+  gameOfLife.populateCell(1, 3);
+}
+
+function startGameOfLife() {
+  gameOfLife.start(500, -1);
+}
+
+</script>
+<title>Conway's Game of Life</title>
+</head>
+<body onload="prepareGameOfLife()">
+<canvas id="gameOfLifeWorld" width="500" height="500" style="border:1px solid #000;">
+  Conway's game of life - looks like you can't do canvas!
+</canvas>
+<input type="button" onclick="startGameOfLife()" value="Go!" />
+<p>Currently in generation <span id="generation">0</span></p>
+</body>
+</html>
