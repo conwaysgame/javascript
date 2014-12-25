@@ -1,12 +1,12 @@
 Conways's Game of Life in JavaScript
 ===
 
-This is an implementation of [Conway's Game of Life](http://en.wikipedia.org/wiki/Conway's_Game_of_Life) in Javascript I created one fine evening when I decided it might be interesting as an exercise in behaviour-driven JavaScript development.
+This is an implementation of [Conway's Game of Life](http://en.wikipedia.org/wiki/Conway's_Game_of_Life) in JavaScript created as an exercise in behaviour-driven JavaScript development. Created by [@basicallydan](https://github.com/basicallydan).
 
 The Game
 ---
 
-Check out the game of life in a sexy canvas view by visiting game.html - it will be made sexier, perhaps.
+Check out the game of life in a sexy canvas view by visiting game.html - this may one day be made more attractive.
 
 Tests
 ---
