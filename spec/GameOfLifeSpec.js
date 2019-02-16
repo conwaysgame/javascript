@@ -29,6 +29,13 @@ describe("GameOfLife", function() {
     expect(gameOfLife.get_world()[2][3]).toEqual(true);
   });
 
+  it("should be able to populate a few cells at once", function() {
+    gameOfLife.populateCells([[0, 3], [2, 3], [3, 3]]);
+    expect(gameOfLife.get_world()[0][3]).toEqual(true);
+    expect(gameOfLife.get_world()[2][3]).toEqual(true);
+    expect(gameOfLife.get_world()[3][3]).toEqual(true);
+  });
+
   it("should be able to toggle a cell", function() {
     gameOfLife.populateCell(0, 3);
     gameOfLife.toggleCell(0, 3);

@@ -94,15 +94,16 @@ function prepareGameOfLife() {
 
   canvas.addEventListener('click', onCanvasClick, false);
 
-  gameOfLife.populateCell(1, 1);
-  gameOfLife.populateCell(2, 1);
-  gameOfLife.populateCell(2, 2);
-  gameOfLife.populateCell(1, 2);
-  gameOfLife.populateCell(1, 3);
+  // gameOfLife.populateCell(1, 1);
+  // gameOfLife.populateCell(2, 1);
+  // gameOfLife.populateCell(2, 2);
+  // gameOfLife.populateCell(1, 2);
+  // gameOfLife.populateCell(1, 3);
+  gameOfLife.populateCells([[0, 0], [2, 0], [1, 1], [2, 1], [1, 2]])
 }
 
 function startGameOfLife() {
-  gameOfLife.start(500, -1);
+  gameOfLife.start(100, -1);
 }
 
 </script>
