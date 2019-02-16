@@ -11,7 +11,7 @@ generationNumberSpan
 offBlackStyle = 'rgb(10, 10, 15)',
 greyStyle = 'rgb(128, 128, 135)',
 whiteStyle = 'rgb(255, 255, 255)',
-sqSz = 10;
+sqSz = 20;
 
 function getClickedCell(e) {
   var x, y;
@@ -42,6 +42,22 @@ function drawRectOnCell(x, y, style) {
   ctx.fillRect(x * sqSz, y * sqSz, sqSz, sqSz);
 }
 
+function drawLines() {
+  var currentX, currentY;
+  var numberOfLinesX = canvas.width / sqSz - 1;
+  var numberOfLinesY = canvas.height / sqSz - 1;
+  ctx.lineWidth = 1;
+  for (currentX = 1; currentX < canvas.height / sqSz; currentX++) {
+    ctx.moveTo(0, sqSz * currentX + 0.5);
+    ctx.lineTo(canvas.width, sqSz * currentX + 0.5);
+  }
+  for (currentY = 1; currentY < canvas.width / sqSz; currentY++) {
+    ctx.moveTo(sqSz * currentY + 0.5, 0);
+    ctx.lineTo(sqSz * currentY + 0.5, canvas.height);
+  }
+  ctx.stroke();
+}
+
 function prepareGameOfLife() {
   canvas = document.getElementById('gameOfLifeWorld');
   ctx = canvas.getContext('2d');
@@ -49,8 +65,11 @@ function prepareGameOfLife() {
   gameOfLife = GameOfLife(canvas.width / sqSz, canvas.height / sqSz);
   generationNumberSpan = document.getElementById('generation');
 
+  drawLines();
+
   gameOfLife.onStep(function() {
     var cx, cy;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (cx = 0; cx < gameOfLife.get_width(); cx += 1) {
       for (cy = 0; cy < gameOfLife.get_height(); cy += 1) {
         if (gameOfLife.isLiving(cx, cy)) {
@@ -61,6 +80,7 @@ function prepareGameOfLife() {
       }
     }
 
+    drawLines();
     generationNumberSpan.innerText = gameOfLife.get_generation();
   });
 
