@@ -4,7 +4,7 @@ This is an implementation of [Conway's Game of Life](http://en.wikipedia.org/wik
 
 ## The Game
 
-Check out the game of life in a sexy canvas view by visiting game.html - this may one day be made more attractive.
+Check out the game of life in a lovely canvas view by visiting index.html, or simply going to the repo's GitHub Pages Page: https://conwaysgame.github.io/javascript/ - this may one day be made more attractive.
 
 ## Tests
 
