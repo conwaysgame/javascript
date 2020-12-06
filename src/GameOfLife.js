@@ -33,6 +33,13 @@ function GameOfLife(w, h) {
 		}
 	};
 
+	this.populateCells = function populateCells (coordinateArray) {
+		var i;
+		for (i = 0; i < coordinateArray.length; i++) {
+			this.populateCell(coordinateArray[i][0], coordinateArray[i][1]);
+		}
+	};
+
 	this.toggleCell = function (x, y) {
 		if (x >= width || y >= height) {
 			throw {
